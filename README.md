@@ -107,7 +107,13 @@ The system implements a classic layered architecture pattern:
 
 ### Building
 
-> Coming Soon (Premake)
+1. Install [premake5](https://premake.github.io/download) and ensure it is on your `PATH`.
+2. From the base directory where you cloned the source (the `premake5.lua` file should be in the current folder), generate the Visual Studio 2022 solution:
+   ```sh
+   premake5 vs2022
+   ```
+   This creates `BankApp/Bank.sln` along with the `BankLib` and `BankApp` project files.
+3. Open `BankApp/Bank.sln` in Visual Studio 2022 and build the solution
 
 ### Running Tests
 
