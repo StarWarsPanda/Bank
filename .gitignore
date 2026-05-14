@@ -1,0 +1,13 @@
+/BankApp/BankLib/.vs
+*.sln
+*.vcxproj
+*.filters
+*.user
+/BankApp/BankLib/BankLib/x64
+/BankApp/BankLib/x64
+/BankApp/BankRun/.vs
+/BankApp/BankRun/BankApp/x64
+/BankApp/BankRun/x64
+/Testing/.vs
+/Testing/Testing/x64
+/Testing/x64
