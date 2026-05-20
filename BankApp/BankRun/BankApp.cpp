@@ -9,26 +9,29 @@
 #include "Account.h"
 #include "Customer.h"
 
+#include <MonGo.hpp>
+
 bool isNumber(const std::string& str) {
-	try {
-		size_t pos;
-
-		std::stoi(str, &pos);
-
-		return pos == str.size();
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		if ('0' > str[i] || str[i] > '9')
+		{
+			return false;
+		}
 	}
-	catch (...) {
-		return false;
-	}
+
+	return true;
 }
 
 int main()
 {
-	AccountRepo accountRepo = AccountRepo();
+	MonGo& mongo = MonGo::GetInstance("mongodb://localhost:27017/?appName=MongoDB+Compass&directConnection=true&serverSelectionTimeoutMS=2000");
+
+	AccountRepo accountRepo = AccountRepo(mongo);
 	AccountService accountService = AccountService(accountRepo);
 	AccountController accountController = AccountController(accountService);
 
-	CustomerRepo customerRepo = CustomerRepo();
+	CustomerRepo customerRepo = CustomerRepo(mongo);
 	CustomerService customerService = CustomerService(customerRepo);
 	CustomerController customerController = CustomerController(customerService);
 

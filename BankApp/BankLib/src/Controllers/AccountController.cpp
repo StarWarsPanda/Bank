@@ -20,12 +20,3 @@ std::string AccountController::getAccountById(int id)
 	nlohmann::json accountJson = serviceAccount;
 	return accountJson.dump();
 }
-
-void to_json(nlohmann::json& json, const Account& account)
-{
-	json = nlohmann::json {
-		{"id", account.id},
-		{"type", account.type},
-		{"balance", account.balance.ToDouble()}
-	};
-}

@@ -2,10 +2,14 @@
 
 std::optional<std::vector<Customer>> CustomerService::getAllCustomers()
 {
-	return m_repo.GetCustomers("");
+	nlohmann::json j = nlohmann::json::object();
+	return m_repo.GetCustomers(j);
 }
 
 std::optional<Customer> CustomerService::getCustomerById(int id)
 {
-	return m_repo.GetCustomer("", id);
+	nlohmann::json j = nlohmann::json{
+		{ "id", id }
+	};
+	return m_repo.GetCustomer(j);
 }

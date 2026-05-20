@@ -14,12 +14,3 @@ std::string CustomerController::getCustomerById(int id)
 	nlohmann::json CustomerJson = serviceCustomer;
 	return CustomerJson.dump();
 }
-
-void to_json(nlohmann::json& json, const Customer& Customer)
-{
-	json = nlohmann::json{
-		{"id", Customer.id},
-		{"name", Customer.name},
-		{"accounts", Customer.accounts}
-	};
-}

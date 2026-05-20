@@ -6,6 +6,8 @@
 #include <sstream>
 #include <optional>
 
+#include <nlohmann/json.hpp>
+
 #include <Currency.h>
 
 class Account
@@ -32,3 +34,19 @@ class Account
 		Type type = checking;
 		Currency balance = 0.0;
 };
+
+inline void to_json(nlohmann::json& j, const Account& p)
+{
+	j = nlohmann::json{
+		{"id", p.id},
+		{"type", p.type},
+		{"balance", p.balance.ToDouble()},
+	};
+}
+
+inline void from_json(const nlohmann::json& j, Account& p)
+{
+	p.id = j.value("id", 0);
+	p.type = j.value("type", Account::Type::checking);
+	p.balance = j.value("balance", 0.0);
+}

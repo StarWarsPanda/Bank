@@ -11,3 +11,10 @@
 /Testing/.vs
 /Testing/Testing/x64
 /Testing/x64
+/.vscode
+*.sum
+*.def
+*.dll
+*.exp
+monGoSDK/mongosdk.h
+*.lib

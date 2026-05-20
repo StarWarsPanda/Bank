@@ -2,19 +2,21 @@
 
 #include <optional>
 
-#include "Models/CustomerModel.h"
-#include "AccountRepo.h" 
+#include <nlohmann/json.hpp>
+#include <MonGo.hpp>
 
-extern Customer customers[];;
+#include "Models/CustomerModel.h"
+#include "Models/AccountModel.h" 
 
 class CustomerRepo
 {
-public:
-	CustomerRepo() {}
-	~CustomerRepo() {}
+	public:
+		explicit CustomerRepo(MonGo& mongoClient) : m_mongoClient(mongoClient) {}
+		~CustomerRepo() {}
 
-	std::optional<std::vector<Customer>> GetCustomers(const std::string& sql);
-	std::optional<Customer> GetCustomer(const std::string& sql, int id); // int id is temporary for right now; parse SQL later
-private:
+		std::optional<std::vector<Customer>> GetCustomers(const nlohmann::json& filter);
+		std::optional<Customer> GetCustomer(const nlohmann::json& filter);
 
+	private:
+		MonGo& m_mongoClient;
 };

@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <ostream>
 
+#include <nlohmann/json.hpp>
+
 class Currency
 {
     public:

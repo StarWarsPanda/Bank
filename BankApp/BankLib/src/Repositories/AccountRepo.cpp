@@ -1,24 +1,37 @@
 #include <Repositories/AccountRepo.h>
 
-Account accounts[] = {
-	{0, Account::Type::checking, Currency(12345.67)},
-	{1, Account::Type::saving, Currency(1007.23)},
-	{2, Account::Type::checking, Currency(19.71)}
-};
-
-std::optional<std::vector<Account>> AccountRepo::GetAccounts(const std::string& sql)
+std::optional<std::vector<Account>> AccountRepo::GetAccounts(const nlohmann::json& filter)
 {
-	// Skip SQL to get database table info right now
-	return std::vector<Account>(accounts, accounts + 3);
+    nlohmann::json results = m_mongoClient.FindMany("BankDB", "Accounts", filter);
+
+    if (results.contains("response") && results["response"].is_array())
+    {
+        std::vector<Account> accounts;
+        for (const auto& result : results["response"])
+        {
+            accounts.push_back(result);
+        }
+        return accounts;
+    }
+
+    return {};
 }
 
-std::optional<Account> AccountRepo::GetAccount(const std::string& sql, int id)
+std::optional<Account> AccountRepo::GetAccount(const nlohmann::json& filter)
 {
-	// Skip SQL to get database table info right now
-	if (0 <= id && id < 3)
-	{
-		return accounts[id];
-	}
+    nlohmann::json results = m_mongoClient.FindOne("BankDB", "Accounts", filter);
 
-	return {};
+    if (results.contains("response"))
+    {
+        if (results["response"].contains("_id"))
+        {
+            return results["response"];
+        }
+        else
+        {
+            std::cout << results["response"].dump() << std::endl;
+        }
+    }
+
+    return {};
 }
