@@ -23,7 +23,8 @@ project "BankLib"
         "BankApp/BankLib/include/Account.h",
         "BankApp/BankLib/include/Currency.h",
         "BankApp/BankLib/include/Customer.h",
-        "BankApp/BankLib/include/Socket.h",    
+        "BankApp/BankLib/include/Socket.h",
+        "BankApp/BankLib/include/MonGo.hpp",    
         "BankApp/BankLib/include/Controllers/AccountController.h",
         "BankApp/BankLib/include/Controllers/CustomerController.h",
         "BankApp/BankLib/include/Models/AccountModel.h",
@@ -34,6 +35,7 @@ project "BankLib"
         "BankApp/BankLib/include/Services/CustomerService.h",
         "BankApp/BankLib/src/Currency.cpp",
         "BankApp/BankLib/src/Socket.cpp",
+        "BankApp/BankLib/src/MonGo.cpp",
         "BankApp/BankLib/src/Controllers/AccountController.cpp",
         "BankApp/BankLib/src/Controllers/CustomerController.cpp",
         "BankApp/BankLib/src/Repositories/AccountRepo.cpp",
@@ -49,6 +51,15 @@ project "BankLib"
         "BankApp/BankLib/include/Repositories",
         "BankApp/BankLib/include/Services",
         "BankApp/BankLib/include/nlohmann",
+        "monGoSDK",
+    }
+    
+    libdirs {
+        "BankApp/BankLib/libraries",
+    }
+    
+    links {
+        "monGoSDK",
     }
     
     defines {
@@ -93,10 +104,11 @@ project "BankApp"
         "BankApp/BankLib/include/Models",
         "BankApp/BankLib/include/Repositories",
         "BankApp/BankLib/include/Services",
+        "monGoSDK",
     }
     
-    links { "BankLib" }
-    libdirs { "BankApp/BankLib/x64/$(Configuration)/" }
+    links { "BankLib", "monGoSDK" }
+    libdirs { "BankApp/BankLib/x64/$(Configuration)/", "BankApp/BankLib/libraries" }
     
     defines {
         "WIN32",
