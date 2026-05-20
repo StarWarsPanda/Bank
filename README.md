@@ -10,8 +10,9 @@ The Bank Application is a production-oriented banking platform built in C++ with
 
 ### Project Structure
 
-- **BankLib** - Core banking library with business logic
+- **BankLib** - Core banking library with business logic and database abstraction
 - **BankRun** - Application entry point and runtime environment
+- **monGoSDK** - MongoDB integration layer providing database operations
 - **Testing** - Comprehensive test suite using Google Test
 
 ### Layered Architecture
@@ -35,6 +36,7 @@ The system implements a classic layered architecture pattern:
    - `CustomerModel` - Customer entity definition
 
 5. **Infrastructure**
+   - `MonGo` - MongoDB database abstraction layer with CRUD operations
    - `Socket` - Network communication handler
    - `Currency` - Currency conversion utilities
 
@@ -42,11 +44,12 @@ The system implements a classic layered architecture pattern:
 
 ### Technology Stack
 
-- **Language**: C++ (Visual Studio 2022+)
+- **Language**: C++ (Visual Studio 2022+) with C++20 Standard
+- **Database**: MongoDB with Go integration (monGoSDK)
 - **Networking**: Windows Sockets API (Winsock2)
 - **Data Format**: JSON (nlohmann/json library)
 - **Testing Framework**: Google Test (v1.8.1)
-- **Build System**: Visual Studio (MSVC)
+- **Build System**: Visual Studio (MSVC) with Premake5
 
 ### Core Components
 
@@ -65,9 +68,10 @@ The system implements a classic layered architecture pattern:
 - JSON-serialized request/response protocol
 - Thread-safe operation handling
 
-#### Data Persistence
-- Repository pattern for data access abstraction
-- In-memory and persistent storage support
+##MongoDB integration for scalable persistent storage
+- Repository pattern abstraction layer for data access
+- JSON-based entity serialization/deserialization
+- CRUD operations through MonGo abstraction (InsertOne/Many, FindOne/Many, UpdateOne/Many, DeleteOne/Many)port
 - Entity serialization/deserialization
 
 ## Project Files
@@ -107,12 +111,13 @@ The system implements a classic layered architecture pattern:
 
 ### Building
 
-1. Install [premake5](https://premake.github.io/download) and ensure it is on your `PATH`.
-2. From the base directory where you cloned the source (the `premake5.lua` file should be in the current folder), generate the Visual Studio 2022 solution:
+1. Ensure MongoDB is installed and accessible (required for monGoSDK integration).
+3. From the base directory where you cloned the source (the `premake5.lua` file should be in the current folder), generate the Visual Studio 2022 solution:
    ```sh
    premake5 vs2022
    ```
-   This creates `BankApp/Bank.sln` along with the `BankLib` and `BankApp` project files.
+   This creates the Bank workspace with `BankLib`, `BankApp`, and `Testing` project files in the `BankApp` directory.
+4. Open the generated solutionank.sln` along with the `BankLib` and `BankApp` project files.
 3. Open `BankApp/Bank.sln` in Visual Studio 2022 and build the solution
 
 ### Running Tests
@@ -139,10 +144,12 @@ Execute the Testing project to validate all functionality:
 - **Transaction History** - View account transactions
 
 ## Dependencies
-
+MongoDB** - Database backend (required for data persistence)
+- **monGoSDK** - Go-based MongoDB C++ wrapper (included in workspace)
 - **nlohmann/json** - JSON library for serialization/deserialization
 - **Windows Sockets API** - Network communication
 - **Google Test** - Unit testing framework
+- **C++20 Standard Library** - STL containers and utilities
 - **C++20 Standard Library** - STL containers and utilities (>=20 for `std::optional`)
 
 ## Configuration
